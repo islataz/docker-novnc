@@ -8,8 +8,9 @@ ARG PASSWD
 ARG PASSWD=${PASSWD:-forsrc}
 ENV DISPLAY=1280x1024
 
-RUN apt-get update
-
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+    && localedef -i es_ES -c -f UTF-8 -A /usr/share/locale/locale.alias es_ES.UTF-8
+ENV LANG es_ES.UTF-8
 
 RUN apt-get install -y --no-install-recommends ubuntu-desktop && \
     apt-get install -y gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal xterm
